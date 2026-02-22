@@ -1,0 +1,219 @@
+# 版权所有（仅供参考） - 企业级 Spring Cloud .gitignore
+# 版本：1.0
+# 描述：适用于基于Maven的Spring Cloud微服务项目
+
+### --- 构建系统 / 依赖 --- ###
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle (如项目使用)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# 通用构建输出
+**/target/
+**/build/
+**/out/
+**/bin/
+**/dist/
+
+### --- 开发环境与IDE --- ###
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+*.classpath
+*.settings/
+.project
+.settings/
+.factorypath
+.vscode/
+*.swp
+*.swo
+*~
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+tmp/
+*.launch
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+### --- 操作系统与编辑器临时文件 --- ###
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+### --- 日志文件 --- ###
+# 应用日志
+*.log
+logs/
+**/logs/
+**/*.log.*
+**/*.log.*.gz
+
+# 日志归档
+**/log/
+**/log/*
+**/*.log.*
+**/*.log.*.gz
+
+### --- 依赖包与容器 --- ###
+# Java
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# 依赖包 (JARs, WARs)
+**/lib/
+**/libs/
+**/*.jar
+!**/src/main/resources/lib/*.jar # 例外：资源目录下的依赖JAR（如有需要）
+
+### --- 数据库与中间件 --- ###
+# H2数据库
+*.db
+*.h2.db
+
+# HSQLDB
+*.script
+
+# 本地开发数据库文件
+*.h2.db
+*.mv.db
+*.db
+
+# Redis (本地dump)
+dump.rdb
+
+# 消息队列等本地数据
+data/
+
+### --- 测试与覆盖率报告 --- ###
+# 单元测试报告
+**/test-output/
+**/reports/
+**/site/
+**/jacoco.exec
+**/jacoco-it.exec
+**/coverage/
+
+# 检查工具报告
+**/checkstyle-result.xml
+**/findbugs.xml
+**/pmd.xml
+
+### --- 环境配置与密钥 --- ###
+# 本地环境配置文件 (切勿提交密钥！)
+*.properties
+*.yml
+*.yaml
+!bootstrap.yml      # 例外：Spring Cloud Bootstrap配置（通常需提交）
+!application.yml    # 例外：主应用配置（通常需提交）
+!application-*.yml  # 例外：其他环境配置模板（如application-dev.yml.template）
+**/application-local*.yml
+**/application-*.properties
+**/config/local/
+
+# 密钥文件
+*.key
+*.p12
+*.pem
+*.crt
+*.cer
+*.jks
+*.keystore
+*.truststore
+
+# Docker Compose 本地覆盖文件
+docker-compose.override.yml
+
+### --- 其他生成文件 --- ###
+# 文档生成
+**/apidocs/
+**/docs/javadoc/
+
+# 操作系统
+*.orig
+*.rej
+*#
+.#*
+*#
+
+# 临时文件
+tmp/
+temp/
+
+### --- 微服务相关 --- ###
+# Spring Cloud Contract 存根（通常由构建生成）
+**/target/stubs/
+**/mappings/
+
+# API文档（如Swagger UI，通常构建生成）
+**/swagger-ui/
+**/doc/api/
+
+# 本地服务注册/配置中心数据（如Eureka、Nacos本地缓存）
+**/data/
+**/work/
+
+### --- 动态生成资源 --- ###
+# 前端构建产物 (如Vue/React build)
+**/src/main/resources/static/built/
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/.npm/
+**/.yarn/
