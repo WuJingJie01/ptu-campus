@@ -1,8 +1,10 @@
 package com.campus.auth.controller;
 
 import com.alibaba.nacos.api.model.v2.Result;
+import com.campus.auth.dto.LoginDTO;
 import com.campus.auth.dto.LoginRequest;
 import com.campus.auth.util.JwtUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +22,15 @@ public class AuthController {
     private StringRedisTemplate redisTemplate;
 
     @PostMapping("/login")
-    public Result<?> login(@RequestBody LoginRequest request) {
-
-        String email = request.getEmail();
-
+    public Result<?> login(@RequestBody @Valid LoginDTO loginDTO) {
         Long userId = 1L;
 
         String accessToken = JwtUtil.generateAccessToken(userId);
         String refreshToken = UUID.randomUUID().toString();
 
         redisTemplate.opsForValue().set(
-                "refresh:" + refreshToken,
-                userId.toString(),
+                "refresh:" + userId.toString(),
+                refreshToken,
                 7, TimeUnit.DAYS
         );
 

@@ -22,7 +22,13 @@
 
     <!-- 依赖版本管理 -->
     <dependencyManagement>
+
         <dependencies>
+            <dependency>
+                <groupId>com.campus</groupId>
+                <artifactId>campus-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>

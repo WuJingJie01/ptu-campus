@@ -2,24 +2,21 @@ package com.campus.user.controller;
 
 import com.alibaba.nacos.api.model.v2.Result;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.campus.user.service.UserService;
+import com.campus.user.vo.UserVO;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
+    private final UserService userService;
     @GetMapping("/info")
-    public Result<?> userInfo() {
-        Map<String, Object> user = new HashMap<>();
-        user.put("id", 1);
-        user.put("name", "张三");
-        user.put("avatar", "https://avatar.com/1");
-        return Result.success(user);
+    public Result<UserVO> getUserInfo() {
+        return Result.success(userService.getUserInfo());
     }
 }

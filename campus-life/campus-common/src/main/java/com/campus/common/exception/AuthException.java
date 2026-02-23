@@ -1,10 +1,10 @@
 package com.campus.common.exception;
 
-import com.campus.common.enums.CommonErrorCode;
+import com.campus.common.error.ErrorCode;
 
 public class AuthException extends BusinessException {
 
-    public AuthException(CommonErrorCode errorCode) {
-        super(errorCode.getCode(), errorCode.getMessage());
+    public AuthException(ErrorCode errorCode) {
+        super(errorCode);
     }
 }

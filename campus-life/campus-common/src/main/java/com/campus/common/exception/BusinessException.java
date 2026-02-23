@@ -1,15 +1,14 @@
 package com.campus.common.exception;
 
-public class BusinessException extends RuntimeException {
+import com.campus.common.error.ErrorCode;
 
-    private final Integer code;
+public class BusinessException extends BaseException {
 
-    public BusinessException(Integer code, String message) {
-        super(message);
-        this.code = code;
+    public BusinessException(ErrorCode errorCode) {
+        super(errorCode.getCode(), errorCode.getMessage());
     }
 
-    public Integer getCode() {
-        return code;
+    public BusinessException(Integer code, String message) {
+        super(code, message);
     }
 }
