@@ -1,5 +1,6 @@
 package com.campus.auth.handler;
 
+import com.campus.common.error.ErrorCode;
 import com.campus.common.result.Result;
 import com.campus.common.exception.BusinessException;
 import com.campus.common.error.CommonErrorCode;
@@ -8,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestControllerAdvice
 @Slf4j
@@ -31,8 +34,8 @@ public class GlobalExceptionHandler {
     public Result<?> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException e) {
 
-        String message = e.getBindingResult()
-                .getFieldError()
+        String message = Objects.requireNonNull(e.getBindingResult()
+                        .getFieldError())
                 .getDefaultMessage();
 
         log.warn("参数校验异常: {}", message);
@@ -49,8 +52,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     public Result<?> handleBindException(BindException e) {
 
-        String message = e.getBindingResult()
-                .getFieldError()
+        String message = Objects.requireNonNull(e.getBindingResult()
+                        .getFieldError())
                 .getDefaultMessage();
 
         log.warn("绑定异常: {}", message);

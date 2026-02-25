@@ -1,6 +1,8 @@
 package com.campus.gateway.filter;
 
-import com.campus.gateway.exception.UnauthorizedException;
+
+import com.campus.common.error.CommonErrorCode;
+import com.campus.common.exception.AuthException;
 import com.campus.gateway.util.JwtUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -29,7 +31,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 .getFirst(HttpHeaders.AUTHORIZATION);
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new UnauthorizedException("Token missing");
+            throw new AuthException(CommonErrorCode.UNAUTHORIZED);
         }
 
         String token = authHeader.replace("Bearer ", "");
@@ -45,7 +47,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return chain.filter(newExchange);
 
         } catch (Exception e) {
-            throw new UnauthorizedException("Token invalid or expired");
+            throw new AuthException(CommonErrorCode.UNAUTHORIZED);
         }
     }
 
