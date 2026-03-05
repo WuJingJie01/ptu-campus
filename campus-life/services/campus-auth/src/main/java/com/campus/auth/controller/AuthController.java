@@ -1,43 +1,58 @@
 package com.campus.auth.controller;
 
-import com.alibaba.nacos.api.model.v2.Result;
-import com.campus.auth.dto.LoginDTO;
 import com.campus.auth.dto.LoginRequest;
-import com.campus.auth.util.JwtUtil;
+import com.campus.auth.dto.RefreshTokenRequest;
+import com.campus.auth.dto.RegisterRequest;
+import com.campus.auth.dto.TokenResponse;
+import com.campus.auth.service.AuthService;
+import com.campus.common.jwt.JwtUtil;
+import com.campus.common.result.Result;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
+@Slf4j
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    private final AuthService authService;
+
+    @PostMapping("/register")
+    public Result<TokenResponse> register(@RequestBody @Valid RegisterRequest request) {
+        log.info("Register request for username: {}", request.getUsername());
+        TokenResponse response = authService.register(request);
+        return Result.success(response);
+    }
 
     @PostMapping("/login")
-    public Result<?> login(@RequestBody @Valid LoginDTO loginDTO) {
-        Long userId = 1L;
+    public Result<TokenResponse> login(@RequestBody @Valid LoginRequest request) {
+        log.info("Login request for username: {}", request.getUsername());
+        TokenResponse response = authService.login(request);
+        return Result.success(response);
+    }
 
-        String accessToken = JwtUtil.generateAccessToken(userId);
-        String refreshToken = UUID.randomUUID().toString();
+    @PostMapping("/refresh")
+    public Result<TokenResponse> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
+        log.info("Refresh token request");
+        TokenResponse response = authService.refreshToken(request.getRefreshToken());
+        return Result.success(response);
+    }
 
-        redisTemplate.opsForValue().set(
-                "refresh:" + userId.toString(),
-                refreshToken,
-                7, TimeUnit.DAYS
-        );
+    @PostMapping("/logout")
+    public Result<Void> logout(@RequestHeader("X-User-Id") Long userId) {
+        log.info("Logout request for userId: {}", userId);
+        authService.logout(userId);
+        return Result.success(null);
+    }
 
-        Map<String, String> data = new HashMap<>();
-        data.put("accessToken", accessToken);
-        data.put("refreshToken", refreshToken);
-
-        return Result.success(data);
+    @GetMapping("/check")
+    public Result<Void> checkAuth(@RequestHeader(value = "X-User-Id", required = false) Long userId) {
+        if (userId == null) {
+            return Result.fail(com.campus.common.error.CommonErrorCode.UNAUTHORIZED);
+        }
+        return Result.success(null);
     }
 }

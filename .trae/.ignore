@@ -1,0 +1,160 @@
+# ========================================
+# Trae 上下文优化忽略文件
+# 针对: SpringBoot 3.x + SpringCloud + Alibaba 微服务栈
+# ========================================
+
+# ---------- 构建系统与输出 ----------
+# Maven 目标目录、构建产物
+target/
+**/target/
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/release.properties
+
+# Maven 包装器与本地仓库缓存
+.mvn/wrapper/maven-wrapper.jar
+~/.m2/repository/
+
+# Gradle (如备用)
+.gradle/
+**/.gradle/
+build/
+**/build/
+!src/**/build/ # 通常不需要，但排除以防万一
+
+# ---------- 依赖与包管理 ----------
+# 依赖jar包 (Maven/Gradle会下载)
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# ---------- 版本控制 ----------
+# Git 内部文件
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+
+# ---------- 集成开发环境 (IDE) ----------
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# 其他编辑器
+*.swp
+*.swo
+*~
+
+# ---------- 日志文件 ----------
+# 应用日志 (通常很大)
+logs/
+**/logs/
+*.log
+*.log.*
+log/
+**/log/
+
+# ---------- 运行时与临时文件 ----------
+# Spring Boot 可执行 Jar
+*.jar.original
+
+# 应用生成的临时文件
+temp/
+tmp/
+**/tmp/
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# ---------- 数据库与本地数据 ----------
+# 本地 H2 或测试数据库文件
+*.db
+*.h2.db
+*.mv.db
+
+# ---------- 配置与密钥 (敏感信息) ----------
+# 本地/覆盖配置 (常含密码)
+application-local*.yml
+application-local*.properties
+application-dev*.yml
+application-dev*.properties
+*-local.*
+
+# 密钥文件
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+
+# ---------- 文档与前端资源 ----------
+# API文档生成目录
+apidoc/
+doc/
+**/doc/
+
+# 前端构建产物 (如前后端分离项目)
+node_modules/
+dist/
+**/dist/
+src/main/resources/static/**/*.js
+src/main/resources/static/**/*.css
+!src/main/resources/static/ # 保留目录结构，但忽略内部编译后的大文件
+
+# ---------- 测试与报告 ----------
+# 测试报告和覆盖率数据
+**/surefire-reports/
+**/failsafe-reports/
+**/test-results/
+coverage/
+**/coverage/
+*.exec
+
+# 测试生成的临时快照
+__snapshots__/
+**/__snapshots__/
+
+# ---------- Docker 与部署 ----------
+# Docker 构建上下文中的大文件
+docker-compose*.yml
+Dockerfile
+**/Dockerfile
+# 注意：如果你希望 Trae 能分析 Docker 配置，可以注释掉上面两行
+
+# ---------- Nacos 本地缓存 (如果作为客户端) ----------
+data/
+**/data/
+config/
+**/config/
+
+# ---------- Sentinel 本地规则文件 (通常动态配置) ----------
+sentinel/
+**/sentinel/
+
+# ========================================
+# 特别注意：以下目录和文件类型通常应被 **保留** 以供 Trae 分析
+# !src/main/java/           # Java 源代码 (核心)
+# !src/main/resources/      # 资源文件 (如 application.yml, bootstrap.yml)
+# !pom.xml                  # 项目依赖定义 (核心)
+# !src/test/java/           # 测试代码 (可选保留，有助于理解)
+# ========================================

@@ -16,17 +16,66 @@
         <spring.boot.version>3.5.0</spring.boot.version>
         <spring.cloud.version>2025.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2025.0.0.0</spring.cloud.alibaba.version>
+        <mybatis.plus.version>3.5.9</mybatis.plus.version>
         <jjwt.version>0.12.6</jjwt.version>
-        <lombok.version>1.18.2</lombok.version>
+        <lombok.version>1.18.34</lombok.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <!-- 依赖版本管理 -->
     <dependencyManagement>
 
         <dependencies>
+            <!-- 2. MyBatis-Plus API依赖（仅注解/核心类，无自动配置） -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <!-- 3. 如需使用MyBatis-Plus的核心工具类（可选） -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis.plus.version}</version>
+
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.campus</groupId>
-                <artifactId>campus-common</artifactId>
+                <artifactId>campus-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.campus</groupId>
+                <artifactId>campus-common-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--lombok-->
@@ -85,7 +134,8 @@
 
     <!-- 子模块 -->
     <modules>
-        <module>campus-common</module>
+        <module>campus-common-core</module>
+        <module>campus-common-security</module>
         <module>services</module>
     </modules>
 

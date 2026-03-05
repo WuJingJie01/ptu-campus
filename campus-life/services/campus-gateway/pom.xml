@@ -21,17 +21,25 @@
         <!-- 通用工具类 -->
         <dependency>
             <groupId>com.campus</groupId>
-            <artifactId>campus-common</artifactId>
+            <artifactId>campus-common-core</artifactId>
         </dependency>
+
         <!-- Gateway 核心 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
         </dependency>
+
         <!-- 负载均衡 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- Nacos 注册 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
         <!-- jwt -->
@@ -50,5 +58,10 @@
             <artifactId>jjwt-jackson</artifactId>
         </dependency>
 
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
     </dependencies>
 </project>
